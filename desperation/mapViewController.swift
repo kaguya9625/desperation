@@ -17,9 +17,6 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     var userLocation:CLLocationCoordinate2D!
     var destLocation:CLLocationCoordinate2D!
     @IBOutlet weak var btn:UIButton!
-    @IBOutlet weak var Circlebtn: UIButton!
-    var CircleCheck:Int = 0
-    var mkCircle = MKCircle(center:CLLocationCoordinate2DMake(0.0, 0.0),radius:1000)
     var mapViewCheck = 0
     var polyline = MKPolyline()
     var pointAno:MKPointAnnotation = MKPointAnnotation()
@@ -28,23 +25,10 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         let storyboard:UIStoryboard = self.storyboard!
         let arpage = storyboard.instantiateViewController(identifier: "arpage") as ViewController
         arpage.routes = mapresult
+        arpage.pointAno = pointAno
         self.present(arpage,animated:true,completion:nil)
     }
     
-    @IBAction func CircleSet(_ sender: Any) {
-        mapViewCheck = 0
-        if CircleCheck == 0{
-            CircleCheck = 1
-            Circlebtn.setTitle("円を非表示", for: .normal)
-            let userCoordinate = map.userLocation.coordinate
-            mkCircle = MKCircle(center:userCoordinate,radius: 3000)
-            map.addOverlay(mkCircle)
-        }else{
-            CircleCheck = 0
-            Circlebtn.setTitle("円を表示", for: .normal)
-            map.removeOverlay(mkCircle)
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
@@ -75,6 +59,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         map.userLocation.title = ""
         if pointAno.coordinate.latitude == 0{
             btn.isEnabled = false
+            btn.setTitleColor(UIColor.gray,for:.normal)
         }
     }
     
@@ -89,11 +74,12 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                    pointAno.coordinate = center
                    map.addAnnotation(pointAno)
                    btn.isEnabled = true
+                btn.setTitleColor(UIColor(red: 135/255, green: 207/255, blue: 233/255, alpha: 1), for: .normal)
                    map.removeOverlay(polyline)
-                   let sourceLocation = map.userLocation.coordinate
-                   let destinationLocation = pointAno.coordinate
-                   let sourcePlaceMark = MKPlacemark(coordinate:sourceLocation)
-                   let destinationPlaceMark = MKPlacemark(coordinate:destinationLocation)
+                   userLocation = map.userLocation.coordinate
+                   destLocation = CLLocationCoordinate2DMake(pointAno.coordinate.latitude, pointAno.coordinate.longitude)
+                   let sourcePlaceMark = MKPlacemark(coordinate:userLocation)
+                   let destinationPlaceMark = MKPlacemark(coordinate:destLocation)
                    let directionRequest = MKDirections.Request()
                    directionRequest.source = MKMapItem(placemark:sourcePlaceMark)
                    directionRequest.destination = MKMapItem(placemark:destinationPlaceMark)
@@ -110,8 +96,10 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
                     self.mapViewCheck = 1
                     self.polyline = route.polyline
                     self.map.addOverlay(self.polyline, level: .aboveRoads)
-                    let rect = route.polyline.boundingMapRect
-                    self.map.setRegion(MKCoordinateRegion(rect),animated:true)
+                    var region:MKCoordinateRegion = self.map.region
+                    region.span.latitudeDelta = 0.02
+                    region.span.longitudeDelta = 0.02
+                    self.map.regionThatFits(region)
                     self.mapresult = response?.routes
                    }
                }
@@ -126,17 +114,10 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if mapViewCheck == 0{
-            let circle = MKCircleRenderer(overlay: overlay);
-            circle.strokeColor = UIColor.green
-            circle.fillColor = UIColor(red: 0.0, green: 0.2, blue: 0.5, alpha: 0.3)
-            circle.lineWidth = 1.0
-            return circle
-        }else{
         let renderer = MKPolylineRenderer(overlay:overlay)
-        renderer.strokeColor = UIColor.blue
+        renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
         renderer.lineWidth = 4.0
         return renderer
-        }
     }
+    
 }

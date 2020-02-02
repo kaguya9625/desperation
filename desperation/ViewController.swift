@@ -22,7 +22,8 @@ class ViewController: UIViewController,
     @IBOutlet var contentView: UIView!
     @IBOutlet var map: MKMapView!
     let sceneLocationView = SceneLocationView()
-    
+     var pointAno:MKPointAnnotation = MKPointAnnotation()
+    @IBOutlet weak var BackButton: UIButton!
     var locationEstimateAnnotaion: MKPointAnnotation?
     var locationEstimateAnnotation: MKPointAnnotation?
 
@@ -32,10 +33,15 @@ class ViewController: UIViewController,
     var centerMapOnUserLocation: Bool = true
     var userAnnotation: MKPointAnnotation?
     var routes: [MKRoute]?
-    var pointAno:MKPointAnnotation = MKPointAnnotation()
     @IBOutlet var longpress: UILongPressGestureRecognizer!
     var locmanager:CLLocationManager!
 
+    @IBAction func back(_ sender: Any) {
+        let storyboard:UIStoryboard = self.storyboard!
+        let mappage = storyboard.instantiateViewController(identifier: "mappage")
+        self.present(mappage,animated:true,completion:nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             initmap()
@@ -47,7 +53,7 @@ class ViewController: UIViewController,
             contentView.addSubview(sceneLocationView)
             sceneLocationView.frame = contentView.bounds
             sceneLocationView.run()
-        
+        map.addAnnotation(pointAno)
         routes?.forEach{map.addOverlay($0.polyline)}
     }
     
@@ -87,11 +93,10 @@ class ViewController: UIViewController,
             }
             return
         }
-        print(" route")
         if let routes = routes{
         sceneLocationView.addRoutes(routes: routes){ distance -> SCNBox in
             let box = SCNBox(width: 1.75, height: 0.5, length: distance, chamferRadius: 0.25)
-            box.firstMaterial?.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
+            box.firstMaterial?.diffuse.contents = UIColor(red: 255/255, green: 253/255, blue: 229/255, alpha: 0.9)
             return box
         }
         sceneLocationView.autoenablesDefaultLighting = true
@@ -108,9 +113,6 @@ class ViewController: UIViewController,
             marker.displayPriority = .required
             marker.glyphImage = UIImage(named:"user")
         }else{
-            marker.displayPriority = .required
-            marker.markerTintColor = UIColor(hue: 0.267, saturation: 0.67, brightness: 0.77, alpha: 1.0)
-            marker.glyphImage = UIImage(named:"compass")
         }
         return marker
     }
@@ -139,10 +141,10 @@ class ViewController: UIViewController,
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
         let renderer = MKPolylineRenderer(overlay:overlay)
         renderer.lineWidth = 3
-        renderer.strokeColor = UIColor.blue.withAlphaComponent(0.5)
-        
+       renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
         return renderer
        }
+    
 
 }
     

@@ -16,11 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RkJ-63-D0T">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="491"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aIA-R5-o4N">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aIA-R5-o4N">
                                 <rect key="frame" x="0.0" y="420" width="375" height="247"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -28,11 +28,23 @@
                                     <outletCollection property="gestureRecognizers" destination="Qwg-iz-hsN" appends="YES" id="Sks-ih-Etx"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZB-ai-Cwc">
+                                <rect key="frame" x="0.0" y="428" width="143" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Mapに戻る">
+                                    <color key="titleColor" red="0.47354592671112672" green="0.733968566894314" blue="0.82822754808832488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vDI-5E-jZy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="BackButton" destination="QZB-ai-Cwc" id="0WU-Pl-9XA"/>
                         <outlet property="contentView" destination="RkJ-63-D0T" id="jxf-j3-O07"/>
                         <outlet property="longpress" destination="Qwg-iz-hsN" id="7kD-Pe-TzR"/>
                         <outlet property="map" destination="aIA-R5-o4N" id="BLW-lM-iKj"/>
@@ -64,20 +76,14 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvL-Pu-4lC">
-                                <rect key="frame" x="66" y="585" width="242" height="62"/>
+                                <rect key="frame" x="66" y="605" width="242" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <state key="normal" title="ナビを開始"/>
+                                <state key="normal" title="ナビを開始">
+                                    <color key="titleColor" red="0.47354592671112672" green="0.733968566894314" blue="0.82822754808832488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="AR:" destination="30Y-fI-ESV" eventType="touchUpInside" id="Fe1-Q0-vCG"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izg-jV-Bjv">
-                                <rect key="frame" x="289" y="29" width="71" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="円を表示"/>
-                                <connections>
-                                    <action selector="CircleSet:" destination="30Y-fI-ESV" eventType="touchUpInside" id="1S8-0q-6Gg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,7 +91,6 @@
                         <viewLayoutGuide key="safeArea" id="TaN-9Y-gxB"/>
                     </view>
                     <connections>
-                        <outlet property="Circlebtn" destination="izg-jV-Bjv" id="jVc-AQ-Cax"/>
                         <outlet property="btn" destination="mvL-Pu-4lC" id="Ryg-gq-Fp6"/>
                         <outlet property="map" destination="nya-HK-UgC" id="BjD-IW-XRg"/>
                     </connections>
