@@ -1,0 +1,6 @@
+framework module Pods_desperationTests {
+  umbrella header "Pods-desperationTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
