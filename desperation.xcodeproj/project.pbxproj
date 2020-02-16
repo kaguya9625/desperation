@@ -17,6 +17,7 @@
 		520E1A9323E46EDA00970C2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 520E1A9123E46EDA00970C2D /* LaunchScreen.storyboard */; };
 		520E1A9E23E46EDA00970C2D /* desperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520E1A9D23E46EDA00970C2D /* desperationTests.swift */; };
 		520E1AA923E46EDA00970C2D /* desperationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520E1AA823E46EDA00970C2D /* desperationUITests.swift */; };
+		52558C0223E787E90051AF96 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 52558C0123E787E90051AF96 /* art.scnassets */; };
 		52B73BA823E58DF800B4A3D7 /* mapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B73BA723E58DF800B4A3D7 /* mapViewController.swift */; };
 		7E6BCD5C170CBCA8FC6FE07F /* Pods_desperationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CEEDD2484EF31849790CD63 /* Pods_desperationTests.framework */; };
 /* End PBXBuildFile section */
@@ -55,6 +56,7 @@
 		520E1AA423E46EDA00970C2D /* desperationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = desperationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		520E1AA823E46EDA00970C2D /* desperationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = desperationUITests.swift; sourceTree = "<group>"; };
 		520E1AAA23E46EDA00970C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52558C0123E787E90051AF96 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		52B73BA723E58DF800B4A3D7 /* mapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mapViewController.swift; sourceTree = "<group>"; };
 		6CEEDD2484EF31849790CD63 /* Pods_desperationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_desperationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A4D6A078A007FE0D0C1A2 /* Pods-desperation-desperationUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-desperation-desperationUITests.release.xcconfig"; path = "Target Support Files/Pods-desperation-desperationUITests/Pods-desperation-desperationUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				520E1A9123E46EDA00970C2D /* LaunchScreen.storyboard */,
 				520E1A9423E46EDA00970C2D /* Info.plist */,
 				52B73BA723E58DF800B4A3D7 /* mapViewController.swift */,
+				52558C0123E787E90051AF96 /* art.scnassets */,
 			);
 			path = desperation;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				520E1A9323E46EDA00970C2D /* LaunchScreen.storyboard in Resources */,
+				52558C0223E787E90051AF96 /* art.scnassets in Resources */,
 				520E1A9023E46EDA00970C2D /* Assets.xcassets in Resources */,
 				520E1A8E23E46EC400970C2D /* Main.storyboard in Resources */,
 			);

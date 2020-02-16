@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>unti</string>
+	<string>AR機能のためにカメラを使用します。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>tinko</string>
+	<string>位置情報を取得します。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

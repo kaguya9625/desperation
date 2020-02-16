@@ -18,18 +18,18 @@ class ViewController: UIViewController,
                       MKMapViewDelegate,
                       CLLocationManagerDelegate {
     
-    
+    override var prefersStatusBarHidden: Bool{ return true }
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation{ return .slide}
+    var userLocation:CLLocationCoordinate2D!
     @IBOutlet var contentView: UIView!
     @IBOutlet var map: MKMapView!
     let sceneLocationView = SceneLocationView()
-     var pointAno:MKPointAnnotation = MKPointAnnotation()
+    var annotationHeightAdjustmentFactor = 1.1
+    var continuallyAdjustNodePositionWhenWithinRange = true
+    var continuallyUpdatePositionandScale = true
+    var pointAno:MKPointAnnotation = MKPointAnnotation()
     @IBOutlet weak var BackButton: UIButton!
     var locationEstimateAnnotaion: MKPointAnnotation?
-    var locationEstimateAnnotation: MKPointAnnotation?
-
-    var updateUserLocationTimer: Timer?
-    var updateInfoLabelTimer: Timer?
-
     var centerMapOnUserLocation: Bool = true
     var userAnnotation: MKPointAnnotation?
     var routes: [MKRoute]?
@@ -41,20 +41,27 @@ class ViewController: UIViewController,
         let mappage = storyboard.instantiateViewController(identifier: "mappage")
         self.present(mappage,animated:true,completion:nil)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        alert()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+            locmanager = CLLocationManager()
+            locmanager.delegate = self
             initmap()
+            BackButton.layer.cornerRadius = 15
             let displayDebugging = false
-            sceneLocationView.showAxesNode = true
             sceneLocationView.showFeaturePoints = displayDebugging
             sceneLocationView.arViewDelegate = self
+        
             addSceneModels()
+            //kamato()
             contentView.addSubview(sceneLocationView)
             sceneLocationView.frame = contentView.bounds
             sceneLocationView.run()
-        map.addAnnotation(pointAno)
-        routes?.forEach{map.addOverlay($0.polyline)}
+            map.addAnnotation(pointAno)
+            routes?.forEach{map.addOverlay($0.polyline)}
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,8 +74,6 @@ class ViewController: UIViewController,
         
     }
     func initmap(){
-        locmanager = CLLocationManager()
-        locmanager.delegate = self
         locmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locmanager.distanceFilter = kCLDistanceFilterNone
         locmanager.headingFilter = kCLHeadingFilterNone
@@ -83,7 +88,6 @@ class ViewController: UIViewController,
         locmanager.requestWhenInUseAuthorization()
         locmanager.startUpdatingHeading()
         locmanager.startUpdatingLocation()
-    
     }
 
     func addSceneModels(){
@@ -95,8 +99,8 @@ class ViewController: UIViewController,
         }
         if let routes = routes{
         sceneLocationView.addRoutes(routes: routes){ distance -> SCNBox in
-            let box = SCNBox(width: 1.75, height: 0.5, length: distance, chamferRadius: 0.25)
-            box.firstMaterial?.diffuse.contents = UIColor(red: 255/255, green: 253/255, blue: 229/255, alpha: 0.9)
+            let box = SCNBox(width: 1.75, height: 0.5, length: distance, chamferRadius: 0.5)
+            box.firstMaterial?.diffuse.contents = UIColor(red: 16/255, green: 36/255, blue: 72/255, alpha: 1)
             return box
         }
         sceneLocationView.autoenablesDefaultLighting = true
@@ -106,9 +110,7 @@ class ViewController: UIViewController,
     func mapView(_ mapView:MKMapView,viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         guard !(annotation is MKUserLocation),
             let pointAnnotation = annotation as? MKPointAnnotation else { return nil }
-        
         let marker = MKMarkerAnnotationView(annotation:annotation,reuseIdentifier: nil)
-        
         if pointAnnotation == self.userAnnotation{
             marker.displayPriority = .required
             marker.glyphImage = UIImage(named:"user")
@@ -117,35 +119,54 @@ class ViewController: UIViewController,
         return marker
     }
     
-    func updateUserLocation(){
-        guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else{
-            return
-        }
-        
-        DispatchQueue.main.async{[weak self] in
-            guard let self = self else{
-                return
-            }
-        
-        if self.userAnnotation == nil{
-            self.userAnnotation = MKPointAnnotation()
-            self.map.addAnnotation(self.userAnnotation!)
-        }
-        
-        UIView.animate(withDuration: 0.5, delay:0,options: .allowUserInteraction, animations:{
-            self.userAnnotation?.coordinate = currentLocation.coordinate
-            },completion:nil)
-        }
-    }
-    
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer{
         let renderer = MKPolylineRenderer(overlay:overlay)
         renderer.lineWidth = 3
-       renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
+        renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
         return renderer
        }
     
-
+//    func kamato(){
+//        let currentLocation = sceneLocationView.sceneLocationManager.currentLocation
+//        // let scene = SCNScene(named: "art.scnassets/kamato.scn")!
+//        //guard let node = scene.rootNode.childNode(withName:"kamato",recursively: true) else { return }
+//        let node:SCNPyramid = SCNPyramid(width: 2.0, height: 2.0, length: 2.0)
+//        node.firstMaterial?.diffuse.contents = UIColor.black
+//        let unko = SCNNode(geometry:node)
+//        let point = CLLocation(coordinate: pointAno.coordinate, altitude: currentLocation.altitude)
+//        let pointNode = LocationNode(location:point)
+//        pointNode.addChildNode(unko)
+//        addScenewideNodeSettings(pointNode)
+//        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pointNode)
+//    }
+    
+    func alert(){
+        let alert:UIAlertController = UIAlertController(title:"注意",message:"周囲に気をつけて歩行してください",preferredStyle: UIAlertController.Style.alert)
+        let confirmAction = UIAlertAction(title:"OK",style:UIAlertAction.Style.default,handler:{
+        (action:UIAlertAction!)-> Void in
+        })
+        alert.addAction(confirmAction)
+        present(alert,animated:true,completion:nil)
+    }
+    
+    func addScenewideNodeSettings(_ node:LocationNode)
+    {
+        if let annoNode = node as? LocationAnnotationNode{
+            annoNode.annotationHeightAdjustmentFactor = annotationHeightAdjustmentFactor
+        }
+        node.scalingScheme = ScalingScheme.normal
+        node.continuallyAdjustNodePositionWhenWithinRange = continuallyAdjustNodePositionWhenWithinRange
+        node.continuallyUpdatePositionAndScale = continuallyUpdatePositionandScale
+    }
+    
+    func locationManager(manager:CLLocationManager!,didUpdateLocations locations:[AnyObject]!){
+        userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude,manager.location!.coordinate.longitude)
+        let userLocAnnotation:MKPointAnnotation = MKPointAnnotation()
+        userLocAnnotation.coordinate = userLocation
+        userLocAnnotation.title = "現在値"
+        map.addAnnotation(userLocAnnotation)
+    }
+    
 }
     
 

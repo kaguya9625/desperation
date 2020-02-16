@@ -11,6 +11,7 @@ import MapKit
 
 class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate{
 
+    @IBOutlet weak var UIsearchbtn: UISearchBar!
     @IBOutlet weak var map: MKMapView!
     var mapresult:[MKRoute]?
     var locManager:CLLocationManager!
@@ -47,6 +48,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
             }
         initmap()
         }
+        btn.layer.cornerRadius = 15.0
     }
     
     func initmap(){
@@ -60,7 +62,29 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         if pointAno.coordinate.latitude == 0{
             btn.isEnabled = false
             btn.setTitleColor(UIColor.gray,for:.normal)
+        
         }
+        setmapUI()
+    }
+    func setmapUI(){
+        
+        let displaySize:CGSize = UIScreen.main.bounds.size
+        let width = Int(displaySize.width)
+        let height = Int(displaySize.height)
+        let compass = MKCompassButton(mapView: map)
+        compass.compassVisibility = .visible
+        compass.frame = CGRect(x: width - 50,y:height - 550,width:40,height:40)
+        self.view.addSubview(compass)
+        map.showsCompass = false
+        
+        let trackingBtn = MKUserTrackingButton(mapView:map)
+        trackingBtn.layer.backgroundColor = UIColor(white:1,alpha: 0.7).cgColor
+        trackingBtn.frame = CGRect(x: width - 50,y:height - 50,width:40,height:40)
+        self.view.addSubview(trackingBtn)
+        
+        UIsearchbtn.backgroundImage = UIImage()
+                UIsearchbtn.searchTextField.backgroundColor = UIColor(red: 239/255, green: 248/255, blue: 254/255, alpha: 1)
+ 
     }
     
     @IBAction func longpress(_ sender: UILongPressGestureRecognizer) {
@@ -115,7 +139,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay:overlay)
-        renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
+        renderer.strokeColor = UIColor(red: 145/255, green: 201/255, blue: 121/225, alpha: 1)
         renderer.lineWidth = 4.0
         return renderer
     }

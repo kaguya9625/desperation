@@ -10,28 +10,36 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Qwg-iz-hsN">
+                    <connections>
+                        <action selector="mappress:" destination="BYZ-38-t0r" id="Olf-xE-MCP"/>
+                    </connections>
+                </pongPressGestureRecognizer>
                 <viewController storyboardIdentifier="arpage" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="desperation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RkJ-63-D0T">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RkJ-63-D0T">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aIA-R5-o4N">
-                                <rect key="frame" x="0.0" y="420" width="375" height="247"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aIA-R5-o4N">
+                                <rect key="frame" x="0.0" y="400" width="375" height="267"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Qwg-iz-hsN" appends="YES" id="Sks-ih-Etx"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZB-ai-Cwc">
-                                <rect key="frame" x="0.0" y="428" width="143" height="46"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZB-ai-Cwc">
+                                <rect key="frame" x="0.0" y="400" width="115" height="50"/>
+                                <color key="backgroundColor" red="0.92215222119999996" green="0.92291420700000004" blue="0.45073580740000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="cON-uV-Huq"/>
+                                    <constraint firstAttribute="height" constant="50" id="nEG-YU-C3r"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-BookIta" family="Bodoni 72" pointSize="24"/>
                                 <state key="normal" title="Mapに戻る">
                                     <color key="titleColor" red="0.47354592671112672" green="0.733968566894314" blue="0.82822754808832488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -41,6 +49,18 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aIA-R5-o4N" firstAttribute="height" secondItem="RkJ-63-D0T" secondAttribute="height" multiplier="0.4" id="8y8-Yl-M3p"/>
+                            <constraint firstItem="QZB-ai-Cwc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BpL-jx-izq"/>
+                            <constraint firstItem="RkJ-63-D0T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GBn-IQ-luG"/>
+                            <constraint firstItem="RkJ-63-D0T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Has-Gv-hLp"/>
+                            <constraint firstItem="RkJ-63-D0T" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ZQs-BC-vAM"/>
+                            <constraint firstItem="aIA-R5-o4N" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ZbR-2z-0v0"/>
+                            <constraint firstItem="aIA-R5-o4N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="brr-XK-zBP"/>
+                            <constraint firstItem="aIA-R5-o4N" firstAttribute="top" secondItem="QZB-ai-Cwc" secondAttribute="bottom" constant="-50" id="gzj-fx-FOw"/>
+                            <constraint firstItem="aIA-R5-o4N" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hJy-DF-YAG"/>
+                            <constraint firstItem="RkJ-63-D0T" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="luv-d5-pIF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
@@ -50,12 +70,6 @@
                         <outlet property="map" destination="aIA-R5-o4N" id="BLW-lM-iKj"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Qwg-iz-hsN">
-                    <connections>
-                        <action selector="mappress:" destination="BYZ-38-t0r" id="Olf-xE-MCP"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="132" y="136.28185907046478"/>
         </scene>
@@ -67,18 +81,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nya-HK-UgC">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nya-HK-UgC">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="de3-To-SjO" appends="YES" id="Fme-DX-C0A"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvL-Pu-4lC">
-                                <rect key="frame" x="66" y="605" width="242" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvL-Pu-4lC">
+                                <rect key="frame" x="117.5" y="600.5" width="140" height="66.5"/>
+                                <color key="backgroundColor" red="0.92215222119999996" green="0.92291420700000004" blue="0.45073580740000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="BodoniSvtyTwoITCTT-BookIta" family="Bodoni 72" pointSize="28"/>
                                 <state key="normal" title="ナビを開始">
                                     <color key="titleColor" red="0.47354592671112672" green="0.733968566894314" blue="0.82822754808832488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -86,11 +99,30 @@
                                     <action selector="AR:" destination="30Y-fI-ESV" eventType="touchUpInside" id="Fe1-Q0-vCG"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="目的地を入力" translatesAutoresizingMaskIntoConstraints="NO" id="q9f-8b-zVS">
+                                <rect key="frame" x="16" y="17" width="343" height="56"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nya-HK-UgC" firstAttribute="leading" secondItem="TaN-9Y-gxB" secondAttribute="leading" id="4Fu-Mb-gCy"/>
+                            <constraint firstItem="mvL-Pu-4lC" firstAttribute="height" secondItem="nya-HK-UgC" secondAttribute="height" multiplier="0.1" id="Xwn-Qm-8Rp"/>
+                            <constraint firstItem="mvL-Pu-4lC" firstAttribute="centerX" secondItem="nya-HK-UgC" secondAttribute="centerX" id="Y46-s4-CpN"/>
+                            <constraint firstItem="nya-HK-UgC" firstAttribute="trailing" secondItem="TaN-9Y-gxB" secondAttribute="trailing" id="YgW-q8-j1Y"/>
+                            <constraint firstItem="nya-HK-UgC" firstAttribute="bottom" secondItem="TaN-9Y-gxB" secondAttribute="bottom" id="ZWf-gk-uqX"/>
+                            <constraint firstItem="nya-HK-UgC" firstAttribute="top" secondItem="TaN-9Y-gxB" secondAttribute="top" id="lIB-ze-QpT"/>
+                            <constraint firstItem="TaN-9Y-gxB" firstAttribute="bottom" secondItem="mvL-Pu-4lC" secondAttribute="bottom" id="sDw-v7-IeX"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="TaN-9Y-gxB"/>
                     </view>
                     <connections>
+                        <outlet property="UIsearchbtn" destination="q9f-8b-zVS" id="dvX-8b-xdF"/>
                         <outlet property="btn" destination="mvL-Pu-4lC" id="Ryg-gq-Fp6"/>
                         <outlet property="map" destination="nya-HK-UgC" id="BjD-IW-XRg"/>
                     </connections>
