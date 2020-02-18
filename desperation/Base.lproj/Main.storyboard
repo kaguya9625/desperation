@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="30Y-fI-ESV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="30Y-fI-ESV">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,12 +10,6 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Qwg-iz-hsN">
-                    <connections>
-                        <action selector="mappress:" destination="BYZ-38-t0r" id="Olf-xE-MCP"/>
-                    </connections>
-                </pongPressGestureRecognizer>
                 <viewController storyboardIdentifier="arpage" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="desperation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -70,6 +64,12 @@
                         <outlet property="map" destination="aIA-R5-o4N" id="BLW-lM-iKj"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Qwg-iz-hsN">
+                    <connections>
+                        <action selector="mappress:" destination="BYZ-38-t0r" id="Olf-xE-MCP"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="132" y="136.28185907046478"/>
         </scene>
@@ -99,7 +99,7 @@
                                     <action selector="AR:" destination="30Y-fI-ESV" eventType="touchUpInside" id="Fe1-Q0-vCG"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="目的地を入力" translatesAutoresizingMaskIntoConstraints="NO" id="q9f-8b-zVS">
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="目的地を入力" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q9f-8b-zVS">
                                 <rect key="frame" x="16" y="17" width="343" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -122,9 +122,9 @@
                         <viewLayoutGuide key="safeArea" id="TaN-9Y-gxB"/>
                     </view>
                     <connections>
-                        <outlet property="UIsearchbtn" destination="q9f-8b-zVS" id="dvX-8b-xdF"/>
                         <outlet property="btn" destination="mvL-Pu-4lC" id="Ryg-gq-Fp6"/>
                         <outlet property="map" destination="nya-HK-UgC" id="BjD-IW-XRg"/>
+                        <outlet property="searchBar" destination="q9f-8b-zVS" id="MUU-ub-vEp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yso-b0-qpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

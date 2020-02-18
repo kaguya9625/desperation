@@ -126,19 +126,7 @@ class ViewController: UIViewController,
         return renderer
        }
     
-//    func kamato(){
-//        let currentLocation = sceneLocationView.sceneLocationManager.currentLocation
-//        // let scene = SCNScene(named: "art.scnassets/kamato.scn")!
-//        //guard let node = scene.rootNode.childNode(withName:"kamato",recursively: true) else { return }
-//        let node:SCNPyramid = SCNPyramid(width: 2.0, height: 2.0, length: 2.0)
-//        node.firstMaterial?.diffuse.contents = UIColor.black
-//        let unko = SCNNode(geometry:node)
-//        let point = CLLocation(coordinate: pointAno.coordinate, altitude: currentLocation.altitude)
-//        let pointNode = LocationNode(location:point)
-//        pointNode.addChildNode(unko)
-//        addScenewideNodeSettings(pointNode)
-//        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pointNode)
-//    }
+
     
     func alert(){
         let alert:UIAlertController = UIAlertController(title:"注意",message:"周囲に気をつけて歩行してください",preferredStyle: UIAlertController.Style.alert)

@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		067876D65FDDC47C76168C29 /* Pods-desperation-desperationUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-desperation-desperationUITests.debug.xcconfig"; path = "Target Support Files/Pods-desperation-desperationUITests/Pods-desperation-desperationUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		47812DE5BEC780690A5CB64A /* Pods-desperationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-desperationTests.release.xcconfig"; path = "Target Support Files/Pods-desperationTests/Pods-desperationTests.release.xcconfig"; sourceTree = "<group>"; };
-		520E1A8323E46EC400970C2D /* desperation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = desperation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		520E1A8323E46EC400970C2D /* AugMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AugMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		520E1A8623E46EC400970C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		520E1A8823E46EC400970C2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		520E1A8A23E46EC400970C2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 		520E1A8423E46EC400970C2D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				520E1A8323E46EC400970C2D /* desperation.app */,
+				520E1A8323E46EC400970C2D /* AugMap.app */,
 				520E1A9923E46EDA00970C2D /* desperationTests.xctest */,
 				520E1AA423E46EDA00970C2D /* desperationUITests.xctest */,
 			);
@@ -193,7 +193,7 @@
 			);
 			name = desperation;
 			productName = desperation;
-			productReference = 520E1A8323E46EC400970C2D /* desperation.app */;
+			productReference = 520E1A8323E46EC400970C2D /* AugMap.app */;
 			productType = "com.apple.product-type.application";
 		};
 		520E1A9823E46EDA00970C2D /* desperationTests */ = {
@@ -599,7 +599,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kaguya.desperation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AugMap;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -618,7 +618,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kaguya.desperation;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AugMap;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
