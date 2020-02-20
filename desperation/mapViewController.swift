@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDelegate,UISearchBarDelegate{
     //UI宣言
@@ -74,13 +75,14 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         let height = Int(displaySize.height)
         let compass = MKCompassButton(mapView: map)
         compass.compassVisibility = .visible
-        compass.frame = CGRect(x: width - 50,y:height - 550,width:40,height:40)
+        compass.frame = CGRect(x: width - 50,y:height - 600,width:40,height:40)
         self.view.addSubview(compass)
         map.showsCompass = false
         
         let trackingBtn = MKUserTrackingButton(mapView:map)
         trackingBtn.layer.backgroundColor = UIColor(white:1,alpha: 0.7).cgColor
         trackingBtn.frame = CGRect(x: width - 50,y:height - 50,width:40,height:40)
+        trackingBtn.layer.cornerRadius = 10.0
         self.view.addSubview(trackingBtn)
         
         searchBar.backgroundImage = UIImage()
@@ -138,11 +140,18 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     
     //現在地が更新された際の処理
     func locationManager(manager:CLLocationManager!,didUpdateLocations locations:[AnyObject]!){
-        userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude,manager.location!.coordinate.longitude)
-        let userLocAnnotation:MKPointAnnotation = MKPointAnnotation()
-        userLocAnnotation.coordinate = userLocation
-        userLocAnnotation.title = "現在値"
-        map.addAnnotation(userLocAnnotation)
+   if let coordinate = locations.last?.coordinate {
+          // 現在地を拡大して表示する
+          let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+          let region = MKCoordinateRegion(center: coordinate, span: span)
+          map.region = region
+        }
+        userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude, manager.location!.coordinate.longitude)
+
+               let userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
+               userLocAnnotation.coordinate = userLocation
+               userLocAnnotation.title = "現在地"
+               map.addAnnotation(userLocAnnotation)
     }
     
     //ピンを追加する処理
@@ -158,7 +167,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     //経路表示の際に表示するoverlay
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay:overlay)
-        renderer.strokeColor = UIColor(red: 145/255, green: 201/255, blue: 121/225, alpha: 1)
+        renderer.strokeColor = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
         renderer.lineWidth = 4.0
         return renderer
     }
@@ -166,10 +175,21 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     //Searchbarのキャンセルボタンをクリックした際の処理
     func searchBarCancelButtonClicked(_ serachBar:UISearchBar){
         searchBar.text = ""
-        self.map.removeAnnotations(annotationArray)
-        annotationArray.removeAll()
+        deleteother()
         self.searchBar.endEditing(true)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.map.removeAnnotations(annotationArray)
+        deleteother()
+    }
+    
+    func deleteother(){
+        self.map.removeAnnotations(annotationArray)
+        annotationArray.removeAll()
+        map.removeOverlay(polyline)
+    }
+    
     //キーボードの検索を押した際の処理
     func searchBarSearchButtonClicked(_ searchBar:UISearchBar){
         self.map.removeAnnotations(annotationArray)
@@ -200,29 +220,35 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
     //pinを選択した際の処理
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let annotation = view.annotation
-        let title:String = annotation!.title!!
-        let latitude:CLLocationDegrees = (annotation?.coordinate.latitude)!
-        let longtitude:CLLocationDegrees = (annotation?.coordinate.longitude)!
-        let alert:UIAlertController = UIAlertController(title:"目的地を設定",message:"\(title) を目的地に設定します",preferredStyle: UIAlertController.Style.alert)
-                 let confirmAction = UIAlertAction(title:"OK",style:UIAlertAction.Style.default,handler:{
-                 (action:UIAlertAction!)-> Void in
-                    
-                    self.map.removeAnnotations(self.annotationArray)
-                    self.addAnnotation(latitude,longtitude,title,"")
-                    self.rootsearch(annotation as! MKPointAnnotation)
-                 })
-        
-        let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (action:UIAlertAction!) -> Void in
-            for annotation in self.map.selectedAnnotations{
-                self.map.deselectAnnotation(annotation, animated: false)
-            }
-        })
-                 alert.addAction(confirmAction)
-                 alert.addAction(cancelAction)
-                 present(alert,animated:true,completion:nil)
+        for anno in annotationArray{
+            if(annotation?.title == anno.title){
+                let title:String = annotation!.title!!
+                       let latitude:CLLocationDegrees = (annotation?.coordinate.latitude)!
+                       let longtitude:CLLocationDegrees = (annotation?.coordinate.longitude)!
+                       let alert:UIAlertController = UIAlertController(title:"目的地を設定",message:"\(title) を目的地に設定します",preferredStyle: UIAlertController.Style.alert)
+                                let confirmAction = UIAlertAction(title:"OK",style:UIAlertAction.Style.default,handler:{
+                                (action:UIAlertAction!)-> Void in
+                                   
+                                   self.map.removeAnnotations(self.annotationArray)
+                                   self.addAnnotation(latitude,longtitude,title,"")
+                                   self.rootsearch(annotation as! MKPointAnnotation)
+                                })
+                       
+                       
+                       let cancelAction:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                           (action:UIAlertAction!) -> Void in
+                           for annotation in self.map.selectedAnnotations{
+                               self.map.deselectAnnotation(annotation, animated: false)
+                           }
+                       })
+                                alert.addAction(confirmAction)
+                                alert.addAction(cancelAction)
+                                present(alert,animated:true,completion:nil)
+                           }
+                       }
+        }
     }
-}
+
 
 
 

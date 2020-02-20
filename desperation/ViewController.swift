@@ -11,6 +11,7 @@ import ARCL
 import ARKit
 import SceneKit
 import MapKit
+import CoreLocation
 
 
 class ViewController: UIViewController,
@@ -24,7 +25,7 @@ class ViewController: UIViewController,
     @IBOutlet var contentView: UIView!
     @IBOutlet var map: MKMapView!
     let sceneLocationView = SceneLocationView()
-    var annotationHeightAdjustmentFactor = 1.1
+    var annotationHeightAdjustmentFactor = 10.5
     var continuallyAdjustNodePositionWhenWithinRange = true
     var continuallyUpdatePositionandScale = true
     var pointAno:MKPointAnnotation = MKPointAnnotation()
@@ -34,6 +35,7 @@ class ViewController: UIViewController,
     var userAnnotation: MKPointAnnotation?
     var routes: [MKRoute]?
     @IBOutlet var longpress: UILongPressGestureRecognizer!
+    
     var locmanager:CLLocationManager!
 
     @IBAction func back(_ sender: Any) {
@@ -49,6 +51,7 @@ class ViewController: UIViewController,
         super.viewDidLoad()
             locmanager = CLLocationManager()
             locmanager.delegate = self
+            locmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             initmap()
             BackButton.layer.cornerRadius = 15
             let displayDebugging = false
@@ -56,7 +59,6 @@ class ViewController: UIViewController,
             sceneLocationView.arViewDelegate = self
         
             addSceneModels()
-            //kamato()
             contentView.addSubview(sceneLocationView)
             sceneLocationView.frame = contentView.bounds
             sceneLocationView.run()
@@ -88,6 +90,7 @@ class ViewController: UIViewController,
         locmanager.requestWhenInUseAuthorization()
         locmanager.startUpdatingHeading()
         locmanager.startUpdatingLocation()
+        
     }
 
     func addSceneModels(){
@@ -100,7 +103,7 @@ class ViewController: UIViewController,
         if let routes = routes{
         sceneLocationView.addRoutes(routes: routes){ distance -> SCNBox in
             let box = SCNBox(width: 1.75, height: 0.5, length: distance, chamferRadius: 0.5)
-            box.firstMaterial?.diffuse.contents = UIColor(red: 16/255, green: 36/255, blue: 72/255, alpha: 1)
+            box.firstMaterial?.diffuse.contents = UIColor(red: 122/255, green: 186/255, blue: 224/225, alpha: 1)
             return box
         }
         sceneLocationView.autoenablesDefaultLighting = true
@@ -148,11 +151,13 @@ class ViewController: UIViewController,
     }
     
     func locationManager(manager:CLLocationManager!,didUpdateLocations locations:[AnyObject]!){
-        userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude,manager.location!.coordinate.longitude)
-        let userLocAnnotation:MKPointAnnotation = MKPointAnnotation()
-        userLocAnnotation.coordinate = userLocation
-        userLocAnnotation.title = "現在値"
-        map.addAnnotation(userLocAnnotation)
+        userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude, manager.location!.coordinate.longitude)
+
+               let userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
+               userLocAnnotation.coordinate = userLocation
+               userLocAnnotation.title = "現在地"
+               map.addAnnotation(userLocAnnotation)
+        map.setCenter(map.userLocation.coordinate, animated: true)
     }
     
 }
