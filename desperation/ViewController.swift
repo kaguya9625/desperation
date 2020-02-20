@@ -25,13 +25,8 @@ class ViewController: UIViewController,
     @IBOutlet var contentView: UIView!
     @IBOutlet var map: MKMapView!
     let sceneLocationView = SceneLocationView()
-    var annotationHeightAdjustmentFactor = 10.5
-    var continuallyAdjustNodePositionWhenWithinRange = true
-    var continuallyUpdatePositionandScale = true
     var pointAno:MKPointAnnotation = MKPointAnnotation()
     @IBOutlet weak var BackButton: UIButton!
-    var locationEstimateAnnotaion: MKPointAnnotation?
-    var centerMapOnUserLocation: Bool = true
     var userAnnotation: MKPointAnnotation?
     var routes: [MKRoute]?
     @IBOutlet var longpress: UILongPressGestureRecognizer!
@@ -54,10 +49,8 @@ class ViewController: UIViewController,
             locmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             initmap()
             BackButton.layer.cornerRadius = 15
-            let displayDebugging = false
-            sceneLocationView.showFeaturePoints = displayDebugging
+            sceneLocationView.showFeaturePoints = false
             sceneLocationView.arViewDelegate = self
-        
             addSceneModels()
             contentView.addSubview(sceneLocationView)
             sceneLocationView.frame = contentView.bounds
@@ -79,7 +72,7 @@ class ViewController: UIViewController,
         locmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locmanager.distanceFilter = kCLDistanceFilterNone
         locmanager.headingFilter = kCLHeadingFilterNone
-        locmanager.pausesLocationUpdatesAutomatically = false
+        locmanager.pausesLocationUpdatesAutomatically = true
         var region:MKCoordinateRegion = map.region
         region.span.latitudeDelta = 0.02
         region.span.longitudeDelta = 0.02
@@ -140,24 +133,20 @@ class ViewController: UIViewController,
         present(alert,animated:true,completion:nil)
     }
     
-    func addScenewideNodeSettings(_ node:LocationNode)
-    {
-        if let annoNode = node as? LocationAnnotationNode{
-            annoNode.annotationHeightAdjustmentFactor = annotationHeightAdjustmentFactor
-        }
-        node.scalingScheme = ScalingScheme.normal
-        node.continuallyAdjustNodePositionWhenWithinRange = continuallyAdjustNodePositionWhenWithinRange
-        node.continuallyUpdatePositionAndScale = continuallyUpdatePositionandScale
-    }
     
     func locationManager(manager:CLLocationManager!,didUpdateLocations locations:[AnyObject]!){
         userLocation = CLLocationCoordinate2DMake(manager.location!.coordinate.latitude, manager.location!.coordinate.longitude)
-
                let userLocAnnotation: MKPointAnnotation = MKPointAnnotation()
                userLocAnnotation.coordinate = userLocation
                userLocAnnotation.title = "現在地"
                map.addAnnotation(userLocAnnotation)
-        map.setCenter(map.userLocation.coordinate, animated: true)
+               map.setCenter(map.userLocation.coordinate, animated: true)
+        if let coordinate = locations.last?.coordinate {
+                 // 現在地を拡大して表示する
+                 let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                 let region = MKCoordinateRegion(center: coordinate, span: span)
+                 map.region = region
+               }
     }
     
 }

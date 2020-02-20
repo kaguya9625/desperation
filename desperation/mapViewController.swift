@@ -41,6 +41,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         locManager = CLLocationManager()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locManager.pausesLocationUpdatesAutomatically = true
         locManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled(){
             switch CLLocationManager.authorizationStatus() {
@@ -66,6 +67,7 @@ class mapViewController: UIViewController,MKMapViewDelegate,CLLocationManagerDel
         map.userLocation.title = ""
         setmapUI()
     }
+    
     func setmapUI(){
         btn.isEnabled = false
         btn.setTitleColor(UIColor.gray,for:.normal)
